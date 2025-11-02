@@ -22,28 +22,14 @@ public class loginServlet extends HttpServlet{
 		// Get form parameters
         String gamerTag = request.getParameter("gamerTag");
         String password = request.getParameter("password");
-        String password2 = request.getParamter("password2");
-        int credits =500;
+      
         
 		
      // Set response content type
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
   
-        
-        if (!password.equals(password2)) {
-            out.println("<html><body>");
-            out.println("<h2 style='color:red;'>Error: Passwords do not match. Please try again.</h2>");
-            out.println("</body></html>");
-            return; // Stop execution here
-        }
-        
-        
-        
-        
-        
-        
-        
+       
         //jdbc
         Connection connection;
 		try {
@@ -55,56 +41,40 @@ public class loginServlet extends HttpServlet{
 			//PUT SOMETHING INTO THE DATABASE USING A PREPAREDSTATEMENT
 			//Use a preparedStatement (parameterised SQL statement) to add a word
 			PreparedStatement createWord = connection.prepareStatement(
-					"INSERT into register "
-					+ "(user)" +" VALUES (?)");
+					"SELECT credits FROM register WHERE gamerTag=? AND password=?");
 					//pass in the values as parameters
-					createWord.setString(1, user);
-					//insert into register (word =  x)
-					int rowsUpdated = createWord.executeUpdate();
-					createWord.close();
+					createWord.setString(1, gamerTag);
+					createWord.setString(2, password);
+				
 					
-					
-			//PUT SOMETHING IN USING A STATEMENT
-			String sql = "INSERT INTO register VALUES ('sad')";
-			Statement insertWord = connection.createStatement();
-			int rowsChanged = insertWord.executeUpdate(sql);
-			
-			//GET SOMETHING OUT OF THE DATABASE	USING A STATEMENT
-					Statement statement = connection.createStatement();
-					ResultSet rs = statement.executeQuery("select * from register");
-
-				while(rs.next()) {
-					System.out.println("Column 1 in ResultSet : "+rs.getString(1));
-				}
-		
-		
-		
-		
-		
-		
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+					ResultSet rs = createWord.executeQuery();
         
         
         
         
-	      
+       
+        
+        
+		    if (rs.next()) {
+		    int credits = rs.getInt("credits");
 	     // Output confirmation
 	        out.println("<html><body>");
-	        out.println("<h2>You have succesfully registered!" + "!</h2>");
-	        out.println("<p>GamerTag: " + gamerTag + "</p>");
-	        out.println("<p>password:" + password + "<p>");
-	        out.println("<p>Credits:" + credits + "</p>");
+	      
+	        out.println("<p>Welcome back! " + gamerTag + "</p>");
+	        out.println("<p>Current Credits:" + credits + "</p>");
             out.println("</ol>");
             out.println("</body></html>");
 		
 		
-		
-	}
+            rs.close();
+            createWord.close();
+            connection.close();
+		    }
 	
+		    } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	
 
+	}
 }
