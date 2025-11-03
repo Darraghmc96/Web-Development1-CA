@@ -32,7 +32,7 @@ public class signUpServlet {
             out.println("<html><body>");
             out.println("<h2 style='color:red;'>Error: Passwords do not match. Please try again.</h2>");
             out.println("</body></html>");
-            return; // Stop execution here
+            return;
         }
         
         
@@ -49,24 +49,18 @@ public class signUpServlet {
 			//PUT SOMETHING INTO THE DATABASE USING A PREPAREDSTATEMENT
 			//Use a preparedStatement (parameterised SQL statement) to add a word
 			PreparedStatement createWord = connection.prepareStatement(
-					"INSERT INTO register (gamerTag, password, credits) VALUES (?, ?, ?)");
+					"INSERT INTO Register (gamerTag, password, credits) VALUES (?, ?, ?)");
 					//pass in the values as parameters
 					createWord.setString(1, gamerTag);
 					createWord.setString(2, password);
 					createWord.setInt(3, credits);
 					
-					//insert into register (word =  x)
+					
 					int rowsUpdated = createWord.executeUpdate();
 					createWord.close();
 					
-					/**
-			//PUT SOMETHING IN USING A STATEMENT
-			String sql = "INSERT INTO register VALUES ('gamerTag')";
-			Statement insertWord = connection.createStatement();
-			int rowsChanged = insertWord.executeUpdate(sql);
-			
-			
-			**/
+		
+		/**
 			//GET SOMETHING OUT OF THE DATABASE	USING A STATEMENT
 					Statement statement = connection.createStatement();
 					ResultSet rs = statement.executeQuery("select * from register");
@@ -74,7 +68,7 @@ public class signUpServlet {
 				while(rs.next()) {
 					System.out.println("Column 1 in ResultSet : "+rs.getString(1));
 				}
-		
+		**/
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

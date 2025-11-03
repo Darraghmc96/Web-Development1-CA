@@ -15,7 +15,7 @@ public class creditsServlet  extends HttpServlet {
 			throws IOException, ServletException{
 		
 		
-		    // add gamertag to html credits page *******
+		    
 		    String gamerTag = request.getParameter("GamerTag");
 		    String action = request.getParameter("action"); 
 	        int amount = request.getParameter("amount");
@@ -29,7 +29,7 @@ public class creditsServlet  extends HttpServlet {
 	        if ("earn".equalsIgnoreCase(action)) {
                 newCredits = credits + amount; 
             } else if ("spend".equalsIgnoreCase(action)) {
-                if (credits - amount <= 0) {
+                if (credits - amount < 0) {
                    
                     out.println("<h2 style='color:red;'>Spending  Failed</h2>");
                     out.println("<p>Sorry , you don't have enough credits.</p>");
