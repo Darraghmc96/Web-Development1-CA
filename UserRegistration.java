@@ -1,4 +1,4 @@
-package webDevCa2;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserRegistration {
-	
+
 	private String username;
     private String email;
     private String password;
@@ -35,7 +35,7 @@ public class UserRegistration {
 	}
 	
 	
-public String RegisterUser()
+public String registerUser()
 {
 
 	// JDBC
@@ -45,7 +45,7 @@ public String RegisterUser()
 	try {
 	    // connect to the DB
 	    connection = DriverManager.getConnection(
-	        "jdbc:mysql://localhost:3306/register?serverTimezone=UTC",
+	        "jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC",
 	        "root",
 	        "root"
 	    );
@@ -91,10 +91,6 @@ public String RegisterUser()
 	}
 	
 }
+
+
 }
-
-
-
-
-
-

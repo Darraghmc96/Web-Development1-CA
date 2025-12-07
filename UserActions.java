@@ -1,4 +1,4 @@
-package Default;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,7 +55,7 @@ public class UserActions {
 
 		        // jdbc
 		        connection = DriverManager.getConnection(
-		            "jdbc:mysql://localhost:3306/register?serverTimezone=UTC",
+		            "jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC",
 		            "root",
 		            "root"
 		        );
@@ -104,7 +104,7 @@ public class UserActions {
 
 		  
 		    if (username == null || username.isEmpty()) {
-		        String message = "No username specified";
+		       
 		        return "ERROR";
 		    }
 
@@ -134,13 +134,13 @@ public class UserActions {
 		            profileData.put("email", rs.getString("email"));
 		            return "SUCCESS";
 		        } else {
-		           String message = "User not found";
+		          
 		            return "ERROR";
 		        }
 
 		    } catch (SQLException e) {
 		        e.printStackTrace();
-		        	String message = "Database error";
+		        	
 		        return "ERROR";
 
 		    } finally {
@@ -155,6 +155,8 @@ public class UserActions {
 		
 		public String viewAllUsers()
 		{
+			
+			userList = new java.util.ArrayList<>();  
 		 Connection connection = null;
 
 		    try {
@@ -179,7 +181,7 @@ public class UserActions {
 	            }
 	            
 	            if (userList.isEmpty()) {
-	                String messege = "No users found";
+	              
 	                return "ERROR";
 	            }
 
@@ -187,7 +189,7 @@ public class UserActions {
 	            
 		    }catch (SQLException e) {
 			    e.printStackTrace();
-			    return "Error";
+			    return "ERROR";
 		    
 		}
 		
