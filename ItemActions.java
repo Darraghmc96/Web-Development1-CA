@@ -275,6 +275,10 @@ public class ItemActions implements SessionAware {
 	    return "ERROR";
 
 
+} finally {
+    // ALWAYS close connections
+    
+    try { if (connection != null) connection.close(); } catch (SQLException e) {}
 }
 	
 	

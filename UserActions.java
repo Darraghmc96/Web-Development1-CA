@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserActions {
+import org.apache.struts2.interceptor.SessionAware;
+
+public class UserActions implements SessionAware {
 	
 
 	 private Map<String, Object> session;
@@ -18,11 +20,9 @@ public class UserActions {
 	    private List<Map<String, String>> userList;
 	    
 	    
-		public Map<String, Object> getSession() {
-			return session;
-		}
-		public void setSession(Map<String, Object> session) {
-			this.session = session;
+	    public void setSession(Map map)
+		{
+			this.session= map;	
 		}
 		public String getUsername() {
 			return username;
@@ -191,6 +191,10 @@ public class UserActions {
 			    e.printStackTrace();
 			    return "ERROR";
 		    
+		} finally {
+		    // ALWAYS close connections
+		   
+		    try { if (connection != null) connection.close(); } catch (SQLException e) {}
 		}
 		
 		

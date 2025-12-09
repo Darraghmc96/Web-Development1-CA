@@ -32,11 +32,7 @@ public class UserLogin implements SessionAware {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	/**
-	 public void setSession(Map<String, Object> session) {
-	        this.session = session;
-	    }
-	**/
+
 	public void setSession(Map map)
 	{
 		this.session= map;	
@@ -45,7 +41,7 @@ public class UserLogin implements SessionAware {
 	{
 		// JDBC
 		Connection connection = null;
-		PreparedStatement ps = null;
+		
 
 		try {
 		    // connect to the DB
@@ -72,14 +68,15 @@ public class UserLogin implements SessionAware {
 	            	
 	                   return "ERROR"; //user not found
 	               }
-	              
-	            
-	            
-	            
+	    
 		}catch (SQLException e) {
 	    e.printStackTrace();
-	    return "Error";
+	    return "ERROR";
 	
+} finally {
+    // ALWAYS close connections
+   
+    try { if (connection != null) connection.close(); } catch (SQLException e) {}
 }
 	}
 

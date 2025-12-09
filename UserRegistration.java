@@ -59,9 +59,8 @@ public String registerUser()
 
             //fix
             if (rs.next()) {
-            	String message = "Username already exists.";
             	
-                return "INPUT";   // Sends back to logIn jsp
+                return "SUCCESS";   // Sends to logIn jsp
             
             }
 
